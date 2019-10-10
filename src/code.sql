@@ -50,7 +50,17 @@ Question 3 : what's the average number of complaints received per year and offic
 select count(*) from data_officerallegation;
 -- total complaints : 244455
 
+select max(start_date) from data_officerallegation;
+--     max     
+-- ------------
+--  2018-02-23
 
+select min(start_date) from data_officerallegation;
+--     min     
+-- ------------
+--  1967-10-21
+
+-- so the dataset records the complaints in the past 50 years
 
 /*
 
@@ -121,3 +131,100 @@ Question 5 : what's the average income of those officers who have received compl
 
 */
 
+
+select avg(salary) from data_salary where officer_id not in (select officer_id from data_officerallegation);
+-- 75726
+
+select avg(salary) from data_salary where officer_id in (select id from data_officer where not exists (select officer_id from data_officerallegation where data_officer.id = officer_id));
+-- 66480
+    
+select avg(salary) from data_salary;
+-- 75291
+
+
+
+
+/*
+
+codes for extra thoughts
+
+*/
+
+-- see which locations have higher frequency of complaints
+select location, count(location) cnt from data_allegation group by location order by cnt desc;
+
+
+-- see the bureau pyramid of Chicago PD
+select rank, count(rank) from data_officer group by rank order by count(rank) ;
+--               rank               | count 
+-- ---------------------------------+-------
+--  Director Of Caps                |     1
+--  Assistant Superintendent        |     1
+--  Superintendent'S Chief Of Staff |     3
+--  Superintendent Of Police        |     6
+--  First Deputy Superintendent     |     8
+--  Deputy Superintendent           |    23
+--  Other                           |    24
+--  Assistant Deputy Superintendent |    25
+--  Chief                           |    29
+--  Deputy Chief                    |    61
+--  Commander                       |   136
+--  Captain                         |   327
+--  Field Training Officer          |   341
+--  Lieutenant                      |   960
+--                                  |  2198
+--  Detective                       |  3067
+--  Sergeant                        |  3495
+--  Police Officer                  | 22966
+
+
+-- see number of complaints received from different rank of officers
+select rank, count(rank) from data_officer where id in (select officer_id from data_officerallegation) group by rank order by count(rank);
+--               rank               | count 
+-- ---------------------------------+-------
+--  Assistant Superintendent        |     1
+--  Superintendent'S Chief Of Staff |     1
+--  Director Of Caps                |     1
+--  First Deputy Superintendent     |     5
+--  Superintendent Of Police        |     6
+--  Other                           |    10
+--  Assistant Deputy Superintendent |    14
+--  Deputy Superintendent           |    15
+--  Chief                           |    24
+--  Deputy Chief                    |    50
+--                                  |    93
+--  Commander                       |   121
+--  Captain                         |   211
+--  Field Training Officer          |   302
+--  Lieutenant                      |   718
+--  Detective                       |  2316
+--  Sergeant                        |  2704
+--  Police Officer                  | 16221
+
+
+-- see if the complaints received frequency among different ranks
+create view officer_rank as select rank, count(rank) from data_officer group by rank order by count(rank) ;
+
+create view officer_rank as select rank, count(rank) from data_officer group by rank order by count(rank) ;
+
+select officer_rank.rank, officer_rank.count off_cnt, allegation_rank.count all_cnt,cast(allegation_rank.count as float)/cast(officer_rank.count as float) ratio from officer_rank inner join allegation_rank on officer_rank.rank = allegation_rank.rank;
+--               rank               | off_cnt | all_cnt |       ratio        
+-- ---------------------------------+---------+---------+--------------------
+--  Director Of Caps                |       1 |       1 |                  1
+--  Assistant Superintendent        |       1 |       1 |                  1
+--  Superintendent'S Chief Of Staff |       3 |       1 |  0.333333333333333
+--  Superintendent Of Police        |       6 |       6 |                  1
+--  First Deputy Superintendent     |       8 |       5 |              0.625
+--  Deputy Superintendent           |      23 |      15 |  0.652173913043478
+--  Other                           |      24 |      10 |  0.416666666666667
+--  Assistant Deputy Superintendent |      25 |      14 |               0.56
+--  Chief                           |      29 |      24 |  0.827586206896552
+--  Deputy Chief                    |      61 |      50 |  0.819672131147541
+--  Commander                       |     136 |     121 |  0.889705882352941
+--  Captain                         |     327 |     211 |  0.645259938837921
+--  Field Training Officer          |     341 |     302 |  0.885630498533724
+--  Lieutenant                      |     960 |     718 |  0.747916666666667
+--                                  |    2198 |      93 | 0.0423111919927207
+--  Detective                       |    3067 |    2316 |  0.755135311379198
+--  Sergeant                        |    3495 |    2704 |  0.773676680972818
+--  Police Officer                  |   22966 |   16221 |  0.706304972568144
