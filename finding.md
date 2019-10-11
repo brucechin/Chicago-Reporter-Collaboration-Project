@@ -1,6 +1,6 @@
 ****Checkpoint1 Finding****
 
-First I'd like to give answers from our proposal:
+First I'd like to give answers from my proposal questions:
 
 1.  what's the relation between average number of complaints received per year and the age of a police officer? older - >more complaints or something else?
 
@@ -10,9 +10,8 @@ First I'd like to give answers from our proposal:
 
 2.  Do those who receive no complaints get more awards?
 
-    Sad results. 2/3 of the Chicago police officers have received complaints, but they receive more than 90% of the
-    awards(656116/(40073 + 656116)).
-
+    Sad results. 2/3 of the Chicago police officers have received complaints, but they receive more than 90% of the awards (656116/(40073 + 656116)).
+    
 3. what's the average number of complaints received per year and officer?
 
     Chicago PD has received 244455 complaints in total. They have 22813 + 10858 = 33671 officers. And the dataset records the past 50 years complaints data. so the average number of complaints received per year and officer is : 244455 / (33671 * 50) = 0.145
@@ -27,16 +26,18 @@ First I'd like to give answers from our proposal:
     |asian|539|385|3808|305590|712|
     |native american|62|53|648|4097|109|
 
-    from the table we can conclude easily that there are racial discrimination when police officers deal with black residents. But for our question, it seems that police of different races have similar ratio of being complained. White officers have the lowest ratio of being complained(less than 0.7). 
+    from the table we can conclude easily that there are racial discrimination when police officers deal with black residents. Hispanic and Asians may not want to spend much time on complaining police. Their complaints/population ratio is relatively lower. But for our question, it is clear that police of different races have similar ratio of being complained. White officers have the lowest ratio of being complained(less than 0.7). 
 
 
 
 5. what's the average income of those officers who have received complaints and the  average salary of the whole Chicago police officers?
 
-    Sadly like the awards question, the average salary of those who ever received complaints are even a bit higher than the total avearge. I guess the Chicago PD won't give salary deduction as punishment for those who receive complaints. The Chicago PD may not take those complaints seriously. 
+    Sadly like the awards question, the average salary of those who ever received complaints are even a bit higher than the total average. I guess the Chicago PD won't give salary deduction as punishment for those who receive complaints. The Chicago PD may not take those complaints seriously. 
 
 Extra thoughts for checkpoint-1:
 
 1.  The most common locations of allegation are Public way, private residence or police buildings
 2.  Among all ranks of officers, they have similar frequency of being complained(0.8), which suggests that the rank does not affect their work attitude? For those who rank high, the variation is because of too few samples. 
-3.  I try to get some statistics of those who receive more than 50 complaints. THe distribution is like the distribution of ranks in all officers. However, the director of caps also receives more than 50 complaints, which is interesting.
+3.  I try to get some statistics of those who receive more than 50 complaints. The distribution is like the distribution of ranks in all officers. However, the director of caps also receives more than 50 complaints, which is interesting.
+
+Because my teammate dropped MSAI339 and I am working on my own, I do not make more extra explorations. During data visualization part, more interesting points may be found out.
