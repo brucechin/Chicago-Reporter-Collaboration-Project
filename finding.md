@@ -10,7 +10,7 @@ First I'd like to give answers from our proposal:
 
 2.  Do those who receive no complaints get more awards?
 
-    Sad results. 2/3 of the Chicago police officers have received complaints, but they recevie more than 90% of the
+    Sad results. 2/3 of the Chicago police officers have received complaints, but they receive more than 90% of the
     awards(656116/(40073 + 656116)).
 
 3. what's the average number of complaints received per year and officer?
@@ -37,4 +37,6 @@ First I'd like to give answers from our proposal:
 
 Extra thoughts for checkpoint-1:
 
-1.  
+1.  The most common locations of allegation are Public way, private residence or police buildings
+2.  Among all ranks of officers, they have similar frequency of being complained(0.8), which suggests that the rank does not affect their work attitude? For those who rank high, the variation is because of too few samples. 
+3.  I try to get some statistics of those who receive more than 50 complaints. THe distribution is like the distribution of ranks in all officers. However, the director of caps also receives more than 50 complaints, which is interesting.
