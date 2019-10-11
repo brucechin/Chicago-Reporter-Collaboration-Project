@@ -132,7 +132,7 @@ Question 5 : what's the average income of those officers who have received compl
 */
 
 
-SELECT avg(salary) FROM data_salary WHERE officer_id not in (SELECT officer_id FROM data_officerallegation);
+SELECT avg(salary) FROM data_salary WHERE NOT EXISTS (SELECT officer_id FROM data_officerallegation WHERE data_officerallegation.officer_id = data_salary.officer_id);
 -- 75726
 
 SELECT avg(salary) FROM data_salary WHERE officer_id in (SELECT id FROM data_officer WHERE not EXISTS (SELECT officer_id FROM data_officerallegation WHERE data_officer.id = officer_id));
@@ -249,8 +249,6 @@ SELECT rank, count(rank) FROM data_officer WHERE id in (SELECT officer_id FROM d
 
 
 -- see if the complaints received frequency among different ranks
-CREATE view officer_rank AS SELECT rank, count(rank) FROM data_officer GROUP BY rank ORDER BY count(rank) ;
-
 CREATE view officer_rank AS SELECT rank, count(rank) FROM data_officer GROUP BY rank ORDER BY count(rank) ;
 
 SELECT officer_rank.rank, officer_rank.count off_cnt, allegation_rank.count all_cnt,cast(allegation_rank.count as float)/cast(officer_rank.count as float) ratio FROM officer_rank INNER JOIN allegation_rank on officer_rank.rank = allegation_rank.rank;
