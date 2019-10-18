@@ -1,0 +1,1 @@
+SELECT 100 * AVG(CASE WHEN final_finding = 'SU' THEN 1 ELSE 0 END) AS percent_sustained FROM data_officerallegation;

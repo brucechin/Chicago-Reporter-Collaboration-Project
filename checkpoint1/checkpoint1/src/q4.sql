@@ -1,0 +1,1 @@
+SELECT AVG(payment) FROM cases_payment;

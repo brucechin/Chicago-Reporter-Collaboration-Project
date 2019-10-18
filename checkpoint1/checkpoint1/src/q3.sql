@@ -1,0 +1,1 @@
+SELECT final_outcome, COUNT(*) AS freq FROM data_officerallegation WHERE final_outcome != 'No Action Taken' GROUP BY data_officerallegation.final_outcome ORDER BY freq DESC LIMIT 3;
