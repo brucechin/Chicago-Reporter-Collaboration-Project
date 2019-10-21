@@ -16,4 +16,4 @@ select final_outcome, count(*) freq from data_officerallegation group by final_o
 **Chart4A**
 select distinct(data_officerallegation.allegation_id), race, end_date - start_date duration from data_officerallegation inner join data_victim dv on data_officerallegation.allegation_id = dv.allegation_id where race != '' and end_date - start_date > 0;
 **Chart 4B**
-select distinct(data_officerallegation.allegation_id), race, final_outcome from data_officerallegation inner join data_victim dv on data_officerallegation.allegation_id = dv.allegation_id;
+select distinct(data_officerallegation.allegation_id), race, final_outcome from data_officerallegation inner join data_victim dv on data_officerallegation.allegation_id = dv.allegation_id where race != '';
