@@ -11,11 +11,11 @@ def merge_arresting_officers():
     arresting_officers = pd.DataFrame()
     for file in arresting_officers_files:
         df = pd.read_csv("./data/arresting-officers/" + file, skiprows=3)
-        print(file)
+        print(file[-8:-4])
         # drop unrelated rows
         df.drop(df.tail(2).index, inplace=True)
 
-        df['arrest_year'] = None
+        df['arrest_year'] = file[-8:-4]
         # delete rows where officer's name are null value
         df['OFFICER\'S NAME'].replace('',np.nan, inplace=True)
         df.dropna(subset=['OFFICER\'S NAME'], inplace=True)
@@ -31,17 +31,31 @@ def merge_arresting_officers():
         print(df.head())
         arresting_officers = arresting_officers.append(df, sort=False)
 
-    #arresting_officers.to_csv("./arresting_officers.csv")
+    arresting_officers.to_csv("./arresting_officers.csv")
 
 def merge_arrests():
     arrests_files = os.listdir("./data/arrests")
-    print(arrests_files)
+    print(arrests_files[-8:-4])
     arrests = pd.DataFrame()
     for file in arrests_files:
-        df = pd.read_csv("./data/arrests/" + file, skiprows=5)
-        df['arrest_year'] = None
-        arrests = arrests.append(df, sort=False)
-    #arrests.to_csv("./arrests.csv")
+        print(file)
+        df = pd.read_csv("./data/arrests/" + file)
+
+        #unify all column names
+        df.rename(columns={'Middle Initial' : 'MIDDLE INITIAL', 'GENDER' : 'SEX', 'Unnamed: 26' : 'COUNT', 'COUNT(AR.CB_NO)' : 'COUNT',
+                           'BOND_DATE' : 'BOND DATE', 'ST Number' : 'ST NUMBER', 'CONCAT(SUBSTR(AR.STREET_NO,1,LENGTH(AR.STREET_NO)-2),\'XX\')' : 'ST NUMBER',
+                           'BOND AMOUNT' : 'BOND AMT', 'TOTAL' : 'COUNT'}, inplace=True)
+        print(df.columns)
+        df.drop(df.tail(10).index, inplace=True)
+        df['arrest_year'] = file[-8:-4]
+        # If an entry is missing its cb_number or its value is not an integer, set the cb_number to  null.
+        pd.to_numeric(df['CB NO'], errors='coerce')
+        df['CB NO'].replace('', np.nan, inplace=True)
+        #df.to_csv("./data/arrests/" + file)
+        #arrests = arrests.append(df, sort=False)
+    #arrests['RELASED DATE'] = arrests.apply(lambda row : date_formatter(row['RELEASED DATE']), axis=1)
+    #arrests['BOND DATE'] = arrests.apply(lambda row : date_formatter(row['BOND DATE']), axis=1)
+    arrests.to_csv("./arrests.csv")
 
 def date_formatter(input):
     res = ''
@@ -61,4 +75,4 @@ def date_formatter(input):
 
 
 
-merge_arresting_officers()
+merge_arrests()
