@@ -1,0 +1,2 @@
+python3 cleaning_and_merge.py
+python3 name_extraction.py

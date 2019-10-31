@@ -13,7 +13,7 @@ def merge_arresting_officers():
         df = pd.read_csv("./data/arresting-officers/" + file, skiprows=3)
         print(file[-8:-4])
         # drop unrelated rows
-        df.drop(df.tail(2).index, inplace=True)
+        df.drop(df.tail(3).index, inplace=True)
 
         df['ARREST YEAR'] = file[-8:-4]
         # delete rows where officer's name are null value
@@ -28,10 +28,10 @@ def merge_arresting_officers():
 
         df['APPOINTED DATE'] = df.apply(lambda row : date_formatter(row['APPOINTED DATE']), axis=1)
 
-        print(df.head())
+        print(df.tail())
         arresting_officers = arresting_officers.append(df, sort=False)
 
-    arresting_officers.to_csv("./arresting_officers.csv")
+    arresting_officers.to_csv("./arresting_officers.csv",  index=False)
 
 def merge_arrests():
     final_columns = ['AGE', 'AREA', 'ARREST CHARGE ID', 'ARREST DATE', 'ARREST EVENT', 'ARREST ID', 'BEAT', 'BOND AMT', 'BOND DATE', 'BOND TYPE', 'CB NO', 'CHARGE CODE',
@@ -74,7 +74,7 @@ def merge_arrests():
 
     #drop COUNT column which is useless
     arrests.drop(columns='COUNT', axis=1, inplace=True)
-    arrests.to_csv("./arrests.csv")
+    arrests.to_csv("./arrests.csv", index=False)
     print(arrests.columns)
 
 
@@ -94,5 +94,5 @@ def date_formatter(input):
 
 
 
-merge_arrests()
+#merge_arrests()
 merge_arresting_officers()
