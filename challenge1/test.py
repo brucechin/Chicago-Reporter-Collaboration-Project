@@ -15,7 +15,7 @@ def merge_arresting_officers():
         # drop unrelated rows
         df.drop(df.tail(2).index, inplace=True)
 
-        df['arrest_year'] = file[-8:-4]
+        df['ARREST YEAR'] = file[-8:-4]
         # delete rows where officer's name are null value
         df['OFFICER\'S NAME'].replace('',np.nan, inplace=True)
         df.dropna(subset=['OFFICER\'S NAME'], inplace=True)
@@ -37,17 +37,19 @@ def merge_arrests():
     arrests_files = os.listdir("./data/arrests")
     print(arrests_files[-8:-4])
     arrests = pd.DataFrame()
+    column_names = set()
     for file in arrests_files:
         print(file)
         df = pd.read_csv("./data/arrests/" + file)
 
         #unify all column names
         df.rename(columns={'Middle Initial' : 'MIDDLE INITIAL', 'GENDER' : 'SEX', 'Unnamed: 26' : 'COUNT', 'COUNT(AR.CB_NO)' : 'COUNT',
-                           'BOND_DATE' : 'BOND DATE', 'ST Number' : 'ST NUMBER', 'CONCAT(SUBSTR(AR.STREET_NO,1,LENGTH(AR.STREET_NO)-2),\'XX\')' : 'ST NUMBER',
+                           'BOND_DATE' : 'BOND DATE', 'ST Number' : 'ST NUMBER', 'St Number' : 'ST NUMBER', 'CONCAT(SUBSTR(AR.STREET_NO,1,LENGTH(AR.STREET_NO)-2),\'XX\')' : 'ST NUMBER',
                            'BOND AMOUNT' : 'BOND AMT', 'TOTAL' : 'COUNT'}, inplace=True)
         print(df.columns)
+        column_names.add(df.columns)
         df.drop(df.tail(10).index, inplace=True)
-        df['arrest_year'] = file[-8:-4]
+        df['ARREST YEAR'] = file[-8:-4]
         # If an entry is missing its cb_number or its value is not an integer, set the cb_number to  null.
         pd.to_numeric(df['CB NO'], errors='coerce')
         df['CB NO'].replace('', np.nan, inplace=True)
@@ -55,7 +57,8 @@ def merge_arrests():
         #arrests = arrests.append(df, sort=False)
     #arrests['RELASED DATE'] = arrests.apply(lambda row : date_formatter(row['RELEASED DATE']), axis=1)
     #arrests['BOND DATE'] = arrests.apply(lambda row : date_formatter(row['BOND DATE']), axis=1)
-    arrests.to_csv("./arrests.csv")
+    #arrests.to_csv("./arrests.csv")
+    print(column_names)
 
 def date_formatter(input):
     res = ''
