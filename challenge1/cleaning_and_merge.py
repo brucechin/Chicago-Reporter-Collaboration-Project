@@ -31,7 +31,7 @@ def merge_arresting_officers():
         print(df.tail())
         arresting_officers = arresting_officers.append(df, sort=False)
 
-    arresting_officers.to_csv("./arresting_officers.csv",  index=False)
+    arresting_officers.to_csv("./arresting_officers_raw.csv",  index=False)
 
 def merge_arrests():
     final_columns = ['AGE', 'AREA', 'ARREST CHARGE ID', 'ARREST DATE', 'ARREST EVENT', 'ARREST ID', 'BEAT', 'BOND AMT', 'BOND DATE', 'BOND TYPE', 'CB NO', 'CHARGE CODE',
@@ -94,5 +94,80 @@ def date_formatter(input):
 
 
 
-#merge_arrests()
+def merge_arresting_officers_with_updates():
+    arresting = pd.read_csv('arresting_officers.csv')
+    arresting_updates = pd.read_csv('arresting-officers-update.csv')
+    #arresting = arresting.drop(columns='OFFICER\'S NAME')
+    arresting_updates['ARREST YEAR'] = arresting_updates['ARREST DATE']
+    arresting_updates['ARREST YEAR'] = arresting_updates['ARREST YEAR'].apply(lambda x : '20' + x[-2:])
+    print(arresting_updates.head())
+    print(arresting.columns)
+    print(arresting_updates.columns)
+    print(len(arresting), len(arresting_updates))
+    arresting = arresting.append(arresting_updates)
+    print(arresting.columns)
+    print(len(arresting))
+
+    #arresting.to_csv('arresting_officers.csv',index=False)
+
+
+def name_extract(input):
+    #return a list of [firstname, middle name, last name, suffix name]
+    suffixes = ['I','II','III','IV','V','VI','VII','VIII','IX','X']
+    data = input.split()
+    firstname = ""
+    middlename = ""
+    lastname = ""
+    suffixname = ""
+    if(len(data) == 2):
+        firstname = data[0]
+        lastname = data[1]
+    elif(len(data) == 3):
+        firstname = data[0]
+        middlename = data[1]
+        lastname = data[2]
+    elif(len(data) == 4):
+        firstname = data[0]
+        middlename = data[1]
+        if(data[3] in suffixes):
+            lastname = data[2]
+            suffixname = data[3]
+        else:
+            lastname = data[2] + " "+ data[3]
+    elif(len(data) == 5):
+        firstname = data[0]
+        middlename = data[1]
+        lastname = data[2]
+    else:
+        firstname = data[0]
+        middlename = data[1]
+        lastname = data[2] + " " + data[3] + data[4] + data[5]
+    return [firstname, middlename, lastname, suffixname]
+
+
+def do_name_extraction():
+    arresting_officers = pd.read_csv('arresting_officers.csv')
+    arresting_officers['FIRST NAME'] = np.nan
+    arresting_officers['MIDDLE INITIAL'] = np.nan
+    arresting_officers['LAST NAME'] = np.nan
+    arresting_officers['SUFFIX NAME'] = np.nan
+    arresting_officers['FIRST NAME'], arresting_officers['MIDDLE INITIAL'], arresting_officers['LAST NAME'], \
+    arresting_officers['SUFFIX NAME'] = zip(*arresting_officers['OFFICER\'S NAME'].apply(lambda row: name_extract(row)))
+
+    arresting_officers.to_csv("arresting_officers.csv", index=False)
+
+
+
+# merge_arrests()
 merge_arresting_officers()
+#
+# do_name_extraction()
+# merge_arresting_officers_with_updates()
+
+
+# arrests_files = os.listdir("./data/arrests")
+# arrests = pd.DataFrame()
+# for file in arrests_files:
+#     print(file)
+#     df = pd.read_csv("./data/arrests/" + file)
+#     print(df[df['ID'] == ''])
