@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-arresting_officers = pd.read_csv('arresting_officers_raw.csv')
+arresting_officers = pd.read_csv('data_officerarrest.csv')
 
 arresting_officers['first_name'] = np.nan
 arresting_officers['middle_initial'] = np.nan

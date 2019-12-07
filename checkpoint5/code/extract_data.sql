@@ -6,7 +6,7 @@ from data_victim inner join data_officerallegation d on data_victim.allegation_i
 
 
 --question 2 data retrieval
-select data_victim.allegation_id, race, allegation_category_id, investigator_id, current_star, disciplined
+select data_victim.allegation_id, race, allegation_category_id, investigator_id, current_star, final_outcome
 from data_victim inner join data_officerallegation d on data_victim.allegation_id = d.allegation_id
     inner join data_investigatorallegation di on d.allegation_id = di.allegation_id;
 
@@ -21,7 +21,7 @@ select ci.id case_id, da.id allegation_id into case_map from cases_ipracase ci i
 
 create view case_allegation_settlement as (select cases_payment.case_id, allegation_id, sum(payment) settlement_num from cases_payment inner join case_map on cases_payment.case_id = case_map.case_id group by cases_payment.case_id, case_map.allegation_id);
 
-select data_victim.allegation_id, race, allegation_category_id, judge, settlement_num
+select data_victim.allegation_id, race, cases_case.primary_cause, judge, settlement_num
 from data_victim inner join data_officerallegation d on data_victim.allegation_id = d.allegation_id
     inner join data_investigatorallegation di on d.allegation_id = di.allegation_id
     inner join case_allegation_settlement cas on d.allegation_id = cas.allegation_id

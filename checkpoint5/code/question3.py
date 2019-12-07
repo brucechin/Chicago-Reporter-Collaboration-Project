@@ -1,0 +1,104 @@
+import pandas as pd
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import f1_score, accuracy_score
+from sklearn.metrics import recall_score,precision_score
+import matplotlib.pyplot as plt
+
+data = pd.read_csv("../data/data_question3.csv")
+primary_cause_list = ['Excessive force', 'Assault', 'Illegal/Unreasonable Search', 'Due Process Violation',
+                      'Battery', 'Failure to Provide Medical Care', 'Monell (Policy and Practice)', 'Illegal search/seizure',
+                      'Illegal/Unreasonable Seizure', 'Wrongful Death', 'Excessive force-serious', 'Malicious prosecution',
+                      'Other police misconduct', 'Deliberate Indifference', 'Reversed conviction', 'Monell (policies and practices)',
+                      'False arrest', 'Extended detention', 'Excessive force-minor', 'Willful and Wanton Misconduct',
+                      'Malicious Prosecution', 'Trespass', 'False Imprisonment', 'Equal protection violation (racial bias)',
+                      'First Amendment violation', 'Illinois Domestic Violence Act violation', 'DUI stop',
+                      'Failure to provide medical care', 'Negligence', 'Unlawful Detention', 'Other 1983/Civil Rights Violations',
+                      'False Arrest']
+judge_list = ['Finnegan', 'James D. Egan', 'Susan Ruscitti-Grussel', 'Brosnahan', 'Shadur', 'Holderman', 'James P. McCarthy',
+              'Marcia Maras', 'Ward John A', 'Gillespie', 'Kathy M. Flanagan', 'Nordberg', 'Lefkow', 'Budzinski', 'Mason',
+              'Norgle, Sr.', 'Alonso', 'Shah', 'William Maddux', 'Dow Jr.', 'Eileen M. Brewer', 'Guzman', 'Varga', 'Gottschall',
+              'Kendall', 'Durkin', 'Der-Yeghiayan', 'Wood', 'Blakey', 'John P. Callahan', 'Lorna E. Propes', 'Pallmeyer',
+              'James P. Flannery', 'Randye Kogan', 'Lee', "Eileen O'Neill Burke", 'Ehrlich', 'Jeffrey Lawrence', 'Feinerman',
+              'Elizabeth M. Budzinski', 'Leinenweber', 'Manning', 'Brewer Eileen', 'Bucklo', 'Brewer', 'Cox', 'Brown', 'Norgle, Sr',
+              'Kenneth Williams', 'Gomolinski', 'Kennelly', 'Norgle Sr.', 'Norgle', 'Tharp, Jr.', 'Diane M. Shelley', 'Gettleman',
+              'Tharp', 'Dow, Jr.', 'Gilbert', 'Castillo', 'Lindberg', 'Hart', 'Thomas Lee Hogan', 'Cassandra Lewis', 'Kim',
+              'Schenkier', 'Zagel', 'Ronald S. Davis', 'Conlon', 'Cole', 'Ehrlich John', 'Coleman', 'Tharp Jr.', 'Chang', 'St. Eve',
+              'Flanagan Kathy', 'Grady', 'Marovich', 'Ellis', 'Hibbler', "James N. O'hara", 'Kocoras', 'Tharp, Jr', 'Dow', 'Rowland', 'Darrah', 'Eve']
+
+def normalize_race(race):
+    if(race == ''):
+        return 0
+    elif(race == 'Black'):
+        return 1
+    elif(race == 'Asian/Pacific Islander'):
+        return 2
+    elif(race == 'Hispanic'):
+        return 3
+    elif(race == 'Native American/Alaskan Native'):
+        return 4
+    else:
+        return 5
+
+def normalize_judge(judge):
+    for i in range(len(judge_list)):
+        if(judge_list[i] == judge):
+            return i
+    return -1 # nan for judge column
+
+def normalize_primary_cause(cause):
+    for i in range(len(primary_cause_list)):
+        if(primary_cause_list[i] == cause):
+            return i
+    return -1 # primary cause not found or nan
+
+data['primary_cause'] = data['primary_cause'].apply(lambda x : normalize_primary_cause(x))
+data['judge'] = data['judge'].apply(lambda x : normalize_judge(x))
+data['race'] = data['race'].apply(lambda x : normalize_race(x))
+data = data.fillna(0)
+
+
+# print(set(data['primary_cause']))
+# print(set(data['judge']))
+
+
+train, test = train_test_split(data, test_size= 0.3)
+X_train = train[['race', 'primary_cause', 'judge']]
+X_test = test[['race', 'primary_cause', 'judge']]
+Y_train = train['settlement_num']
+Y_test = test['settlement_num']
+
+clf = RandomForestClassifier(random_state= 10, n_estimators=20)
+clf.fit(X_train, Y_train)
+prediction = clf.predict(X_test)
+print("prediction scores with 'race', 'allegation type/primary cause' and 'judge' are :")
+print("accuracy is {}, F1 score is {}".format(accuracy_score(prediction, Y_test), f1_score(prediction, Y_test, average='weighted')))
+print("precision score is {}, recall score is {}".format(precision_score(prediction, Y_test, average='weighted'),recall_score(prediction, Y_test, average='weighted')))
+#print(prediction, Y_test)
+
+importances = clf.feature_importances_
+
+plt.figure()
+plt.title("question 3 feature importance graph")
+plt.bar(['race', 'allegation type/primary cause', 'judge'], importances)
+plt.show()
+
+
+#like question 2, race is not an important feature too(wierd). we will do prediction using the other two only
+train, test = train_test_split(data, test_size= 0.3)
+X_train = train[['primary_cause', 'judge']]
+X_test = test[['primary_cause', 'judge']]
+Y_train = train['settlement_num']
+Y_test = test['settlement_num']
+
+clf = RandomForestClassifier(random_state= 10, n_estimators=20)
+clf.fit(X_train, Y_train)
+prediction = clf.predict(X_test)
+print("prediction scores with 'allegation type/primary cause' and 'judge' are :")
+print("accuracy is {}, F1 score is {}".format(accuracy_score(prediction, Y_test), f1_score(prediction, Y_test, average='weighted')))
+print("precision score is {}, recall score is {}".format(precision_score(prediction, Y_test, average='weighted'),recall_score(prediction, Y_test, average='weighted')))
+#print(prediction, Y_test)
+
+#prediction accuracy decrease more compared with question 2 second model's accuracy decrease.
+#but race is still the least important feature among these three features.
