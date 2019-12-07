@@ -29,3 +29,11 @@ from data_victim inner join data_officerallegation d on data_victim.allegation_i
 
 --question 4 data retrieval
 
+select public.data_allegation.id allegation_id, crid, allegation_name, category, final_outcome, d.race investigator_race, dv.race victim_race  from data_allegation
+    inner join data_victim dv on data_allegation.id = dv.allegation_id
+    inner join data_investigatorallegation di on data_allegation.id = di.allegation_id
+    inner join data_investigator d on di.investigator_id = d.id
+    inner join data_officerallegation doa on data_allegation.id = doa.allegation_id
+    inner join data_allegationcategory da on doa.allegation_category_id = da.id;
+
+-- use the crid above to link challenge3 data document_text
