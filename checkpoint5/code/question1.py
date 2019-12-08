@@ -1,11 +1,14 @@
 import pandas as pd
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score, accuracy_score
-from sklearn.metrics import recall_score,precision_score
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn import tree
+from sklearn.externals.six import StringIO
+from IPython.display import Image
+from sklearn.tree import export_graphviz
+import pydotplus
 
 #load data from csv file, we have total data of 211440 rows
 data = pd.read_csv("../data/data_question1.csv")
@@ -41,17 +44,27 @@ Y_test = test['duration']
 # for i in estimators:
 
 #after testing, we found that LR model training costs too much time, which means it is not a good option. We will not use LR model in following questions
-clf = RandomForestClassifier(random_state= 10, n_estimators=20)
-#clf = DecisionTreeClassifier(random_state=10)
-#clf = LogisticRegression(random_state=20)
+#clf = RandomForestRegressor(random_state= 10, n_estimators=20)
+clf = DecisionTreeRegressor(random_state=10)
 clf.fit(X_train, Y_train)
 prediction = clf.predict(X_test)
 print("investigation duration prediction scores with 'race', 'allegation_category_id' and 'investigator_id' are :")
-print("training accuracy score is {}".format(clf.score(X_train, Y_train)))
-print("testing accuracy is {}, F1 score is {}".format(accuracy_score(prediction, Y_test), f1_score(prediction, Y_test, average='weighted', zero_division=True)))
-print("precision score is {}, recall score is {}".format(precision_score(prediction, Y_test, average='weighted', zero_division=True),recall_score(prediction, Y_test, average='weighted', zero_division=True)))
+print("training accuracy RMSE score is {}".format(np.sqrt(mean_squared_error(clf.predict(X_train), Y_train))))
+print('testing accuracy RMSE score is {}'.format(np.sqrt(mean_squared_error(prediction, Y_test))))
 print("\n")
-print(clf.feature_importances_)
+print(tree.plot_tree(clf))
+
+from graphviz import Source
+from IPython.display import SVG
+graph = Source( tree.export_graphviz(clf, out_file=None, feature_names=X_train.columns))
+SVG(graph.pipe(format='svg'))
+
+graph = Source( tree.export_graphviz(clf, out_file=None, feature_names=X_train.columns))
+graph.format = 'png'
+graph.render('dtree_render',view=True)
+
+#graph.write_png("iris.png")
+
 # for i in range(len(columns)):
 #     print("feature {} importance score in decision tree : {}".format(columns[i], clf.feature_importances_[i]))
 

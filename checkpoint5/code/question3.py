@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score, accuracy_score
-from sklearn.metrics import recall_score,precision_score
 import matplotlib.pyplot as plt
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import mean_squared_error
 
 data = pd.read_csv("../data/data_question3.csv")
 primary_cause_list = ['Excessive force', 'Assault', 'Illegal/Unreasonable Search', 'Due Process Violation',
@@ -62,25 +63,27 @@ data = data.fillna(0)
 
 # print(set(data['primary_cause']))
 # print(set(data['judge']))
-
-
+print(data.describe())
+#data = data.drop(data[data['settlement_num'] > 1000000].index)
+#print(data.describe())
 train, test = train_test_split(data, test_size= 0.3)
 X_train = train[['race', 'primary_cause', 'judge']]
 X_test = test[['race', 'primary_cause', 'judge']]
 Y_train = train['settlement_num']
 Y_test = test['settlement_num']
 
-#clf = DecisionTreeClassifier(random_state=10)
 
-clf = RandomForestClassifier(random_state= 10, n_estimators=20)
-clf.fit(X_train, Y_train)
-prediction = clf.predict(X_test)
-print("prediction scores with 'race', 'allegation type/primary cause' and 'judge' are :")
-print("training accuracy score is {}".format(clf.score(X_train, Y_train)))
+#clf = RandomForestRegressor(random_state= 10, n_estimators=50)
+depths = [10, 15, 20, 25, 30, 35, 40, 45, 50]
+for depth in depths:
+    clf = DecisionTreeRegressor(random_state=10, max_depth= depth)
+    clf.fit(X_train, Y_train)
+    prediction = clf.predict(X_test)
+    print("prediction scores with 'race', 'allegation type/primary cause' and 'judge' are :")
+    print("training accuracy RMSE score is {}".format(np.sqrt(mean_squared_error(clf.predict(X_train), Y_train))))
+    print('testing accuracy RMSE score is {}'.format(np.sqrt(mean_squared_error(prediction, Y_test))))
+    print("\n")
 
-print("accuracy is {}, F1 score is {}".format(accuracy_score(prediction, Y_test), f1_score(prediction, Y_test, average='weighted', zero_division=True)))
-print("precision score is {}, recall score is {}".format(precision_score(prediction, Y_test, average='weighted', zero_division=True),recall_score(prediction, Y_test, average='weighted', zero_division=True)))
-print("\n")
 #print(prediction, Y_test)
 
 importances = clf.feature_importances_
