@@ -1,0 +1,5 @@
+pip install jupyter
+pip install pandas
+pip install matplotlib
+pip install networkx==2.3
+pip install python-louvain

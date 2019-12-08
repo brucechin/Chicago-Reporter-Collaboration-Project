@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, accuracy_score
 from sklearn.metrics import recall_score,precision_score
 import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeClassifier
 
 data = pd.read_csv("../data/data_question3.csv")
 primary_cause_list = ['Excessive force', 'Assault', 'Illegal/Unreasonable Search', 'Due Process Violation',
@@ -69,36 +70,24 @@ X_test = test[['race', 'primary_cause', 'judge']]
 Y_train = train['settlement_num']
 Y_test = test['settlement_num']
 
+#clf = DecisionTreeClassifier(random_state=10)
+
 clf = RandomForestClassifier(random_state= 10, n_estimators=20)
 clf.fit(X_train, Y_train)
 prediction = clf.predict(X_test)
 print("prediction scores with 'race', 'allegation type/primary cause' and 'judge' are :")
-print("accuracy is {}, F1 score is {}".format(accuracy_score(prediction, Y_test), f1_score(prediction, Y_test, average='weighted')))
-print("precision score is {}, recall score is {}".format(precision_score(prediction, Y_test, average='weighted'),recall_score(prediction, Y_test, average='weighted')))
+print("training accuracy score is {}".format(clf.score(X_train, Y_train)))
+
+print("accuracy is {}, F1 score is {}".format(accuracy_score(prediction, Y_test), f1_score(prediction, Y_test, average='weighted', zero_division=True)))
+print("precision score is {}, recall score is {}".format(precision_score(prediction, Y_test, average='weighted', zero_division=True),recall_score(prediction, Y_test, average='weighted', zero_division=True)))
+print("\n")
 #print(prediction, Y_test)
 
 importances = clf.feature_importances_
-
+print(importances)
 plt.figure()
 plt.title("question 3 feature importance graph")
 plt.bar(['race', 'allegation type/primary cause', 'judge'], importances)
 plt.show()
 
 
-#like question 2, race is not an important feature too(wierd). we will do prediction using the other two only
-train, test = train_test_split(data, test_size= 0.3)
-X_train = train[['primary_cause', 'judge']]
-X_test = test[['primary_cause', 'judge']]
-Y_train = train['settlement_num']
-Y_test = test['settlement_num']
-
-clf = RandomForestClassifier(random_state= 10, n_estimators=20)
-clf.fit(X_train, Y_train)
-prediction = clf.predict(X_test)
-print("prediction scores with 'allegation type/primary cause' and 'judge' are :")
-print("accuracy is {}, F1 score is {}".format(accuracy_score(prediction, Y_test), f1_score(prediction, Y_test, average='weighted')))
-print("precision score is {}, recall score is {}".format(precision_score(prediction, Y_test, average='weighted'),recall_score(prediction, Y_test, average='weighted')))
-#print(prediction, Y_test)
-
-#prediction accuracy decrease more compared with question 2 second model's accuracy decrease.
-#but race is still the least important feature among these three features.

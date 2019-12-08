@@ -1,0 +1,416 @@
+allegation_category_id,allegation_name
+1,Unfit For Duty
+2,Absence Without Permission
+3,Medical Roll Violation
+4,Medical Roll - Fail To Notify Spvsr
+5,Medical Roll - Fail To Rpt In Person To Mss 2Nd Day For Eval
+6,Medical Roll - Absent From Residence
+7,Medical Roll - Fail To Rpt To Mss Or Other Medical Service
+8,Medical Roll - Other And Specify
+9,Tardiness
+10,Court Appearance Violation
+11,Uniform Violation - General Order
+12,Uniform Violation - Official Duty
+13,Equipment Violation
+14,Weapons/Ammunition Violation
+15,Back In Service Violation
+16,Excessive Time Violation
+17,Courteous Police Service
+18,Lounging
+19,Unnecessary Visiting With Public
+20,Unnecessary Visiting With Officers
+21,Parking Vehicles
+22,Transporting Persons
+23,Congregating
+24,Absent/Leaving Duty Assignment
+25,Failure To Perform Assigned Tasks
+26,Radio/Television Violation
+27,Commercial Publications Violation
+28,Inattention To Duty
+29,Reports - Fail To Submit
+30,Reports - Failure To Report Incident
+31,Use Of Profanity
+32,"Racial / Ethnic, Etc."
+33,Sexual Orientation
+34,Religious Affiliation
+35,Miscellaneous
+36,Misuse Of Equipment/Supplies
+37,Radio Call Violation
+38,Failure To Perform Any Duty
+39,Current Il License Plates And/Or City Vehicle Sticker
+40,Indebtedness To The City
+41,Statement Of Financial Interest
+42,Smoking Violation
+43,Preventable Accident
+44,Supervisor Responsibility
+45,Non Compliance With Motor Vehicle Pursuit Requirements
+46,Compensatory Time Violation
+47,Failure To Identify
+48,Intoxicated On Duty
+49,Intoxicated Off Duty
+50,D.U.I. - On Duty
+51,D.U.I. - Off Duty
+52,Possession / Drinking Alcohol - On Duty
+53,Impairment .04 Or Greater - On Duty
+54,Impairment .04 Or Greater - Off Duty
+55,Random Drug/Return To Duty 6 Mos Follow-Up .021 Or Greater
+56,Miscellaneous
+57,Neglect Of Duty
+58,Conduct Unbecoming
+59,Inventory Procedure
+60,Inventory Procedures - Non-Arrestee
+61,Traffic Bonding Procedures
+62,Traffic Citation Processing
+63,Traffic Crash Report - Fail To Properly Process
+64,Traffic Regulations - Fail To Enforce
+65,Improper Arrest/Booking/Processing
+66,Improper Bonding Procedures
+67,Search Improper - Person/Property
+68,Prisoner's Property - Fail To Inventory
+69,First Amendment
+70,Improper Search Of Person
+71,Search Of Premise Without Warrant
+72,Illegal Arrest / False Arrest
+73,Injury / Death (Under Color Of Law)
+74,Failure To Ensure Civil Rights
+75,Improper Search Of Vehicle
+76,Planting Controlled Substance On Person
+77,Planting Controlled Substance In Premise
+78,Planting Controlled Substance In Vehicle
+79,Planting Controlled Substance - Other
+80,Racial Profiling
+81,Improper Detention
+82,Unlawful / Excessive Investigative Detention (Witness)
+83,Illegal Threat Of Arrest
+84,Search Of Person - Property / Usc Taken
+85,Search Of Premise - Property / Usc Taken
+86,Search Of Vehicle - Property / Usc Taken
+87,Miscellaneous
+88,Bonding/Booking/Processing
+89,"Arrest, Improper Procedures"
+90,Excessive Detention - After Arrest
+91,Search - Person / Property
+92,Prisoners Property
+93,Escape
+94,Telephone / Attorney / Relative Privileges
+95,Proper Care - Injury / Death
+96,Miscellaneous
+97,Miscellaneous
+98,Excessive Force / On Duty - Injury
+99,Excessive Force / On Duty - No Injury
+100,Excessive Force / Off Duty - Injury
+101,Excessive Force / Off Duty - No Injury
+102,Excessive Force - Use Of Firearm / On Duty - Injury
+103,Excessive Force - Use Of Firearm / On Duty - No Injury
+104,Excessive Force - Use Of Firearm / Off Duty - Injury
+105,Excessive Force - Use Of Firearm / Off Duty - No Injury
+106,"U Converted To C.R. (Records Keeping Only, Initial)"
+107,Domestic Altercation - Physical Abuse
+108,Domestic Incident - Not Physical
+109,Unnecessary Physical Contact / On Duty - No Injury
+110,Unnecessary Physical Contact / Off Duty - No Injury
+111,Unnecessary Display Of Weapon / On Duty
+112,Unnecessary Display Of Weapon / Off Duty
+113,Civil Suits - Third Party
+114,Excessive Force - Taser - Use Of
+115,Miscellaneous
+116,Arrestee-During  Arrest
+117,"Arrestee-After Arrest,Prior To Lockup"
+118,Arrestee-Lockup/Deletion
+119,No Arrest
+120,Traffic
+121,Domestic
+122,Domestic Altercation/Incident - Off Duty
+123,Unnecessary Physical Contact -On Duty
+124,Unnecessary Physical Contact/ Off -No Injury
+125,Weapon-Unnecessary Display Of
+126,"Excessive Force-Off Duty(Includes Neighbor,Traffic,Tav)"
+127,Excessive Force-Taser Use Of
+128,Solicit / Accept Bribe (Non-Traffic)
+129,Solicit / Accept Bribe (Traffic)
+130,Extortion
+131,"Bribe, Failure To Report"
+132,Gratuity
+133,Recommend Professional Service
+134,Use Of Official Position
+135,An Act To Circumvent Criminal Prosecution
+136,Gang Affiliation
+137,False Testimony In Court
+138,Miscellaneous
+139,Misconduct During Issuance Of Citation
+140,Improper Processing / Reporting / Procedures
+141,Violation (Other Than D.U.I.) - On Duty
+142,Parking Complaints
+143,Fail To Enforce Traffic Regulations
+144,Miscellaneous
+145,Preventable Traffic Accident
+146,Miscellaneous
+147,"Murder / Manslaughter, Etc."
+148,"Assault / Battery, Etc."
+149,Criminal Sexual Assault
+150,Burglary
+151,Auto Theft
+152,Theft
+153,Shoplifting
+154,Robbery
+155,"Drugs / Controlled Substance, Possession Or Sale"
+156,Damage / Trespassing To Property
+157,Arson
+158,Other Felony
+159,Conspiracy To Commit A Crime
+160,Police Impersonator (Advocate Section Use Only)
+161,Other Misdemeanor Arrest
+162,Sex Offense Other
+163,Judicial Process
+164,Miscellaneous
+165,Altercation / Disturbance - Other
+166,Altercation / Disturbance - Neighbor
+167,Altercation / Disturbance - Traffic
+168,Traffic Violations (Other Than D.U.I.)
+169,Misdemeanor Arrest
+170,Sexual Misconduct
+171,Abuse Of Authority
+172,Judicial Process/Directive - Contempt
+173,Association With Felon
+174,Indebtedness To City
+175,Drivers License - Revoked / Suspended
+176,Equipment Irregularity
+177,Weapon Irregularity
+178,Vehicle Licensing - City
+179,Vehicle Licensing - State
+180,Residency
+181,Altering Official Documents
+182,Miscellaneous
+183,Absent Without Permission
+184,Failure To Identify
+185,Seat Belts
+186,Conduct Unbecoming
+187,Compensatory Time
+188,Employment Action - Shakman Decree
+189,Slow / No Response
+190,Secondary/Special Employment
+191,Court Attendance Irregularities
+192,Unfit For Duty
+193,"Leaving Assignment (District, Beat, Sector, Court)"
+194,Neglect Of Duty
+195,Late - Roll Call / Assignment / Court
+196,Weapon / Ammunition
+197,Insubordination
+198,Lunch / Personal Violations
+199,Misuse Of Department Equipment / Supplies
+200,Misuse Of Department Records
+201,Residency
+202,Eeo Investigations
+203,Reports
+204,Inadequate / Failure To Provide Service
+205,Inventory Procedures
+206,Traffic Pursuit
+207,Political Activity
+208,Miscellaneous
+209,Forwarded To O.E.C.
+210,Equal Employment Opportunities Investigations
+211,Initiate Proper Action
+212,Properly Direct Subordinate
+213,Properly Review / Inspect Subordinate
+214,Fail To Obtain A Complaint Register Number
+215,Conduct An Improper / Inadequate Investigation
+216,Failure To Ensure - Civil Rights
+217,Miscellaneous
+218,State Civil Suit
+219,Federal Civil Suit
+220,Use / Abuse Drugs / Controlled Substance - On Duty
+221,Use / Abuse Drugs / Controlled Substance - Off Duty
+222,"D.U.I., Drugs / Controlled Substance - On Duty"
+223,"D.U.I., Drugs / Controlled Substance - Off Duty"
+224,Positive Drug Screen - Originated From Complaint
+225,Positive Drug Screen - Promotion Physical
+226,Positive Drug Screen - Other Physical Exam
+227,Refusal Of Direct Order To Provide Drug Screen Specimen
+228,Just Cause
+229,Miscellaneous
+230,Damage Property
+231,Failure To Leave Notification
+232,Missing Money Or Property
+233,Wrong Address
+234,Improper Service Of Warrant
+235,Improper Documentation
+236,Miscellaneous
+237,Working While On The Medical / Iod
+238,Altering Medical Documents
+239,Medical Roll Violation
+240,False Reporting Of Iod
+241,Refusal Of Direct Order For Physical
+242,Refusal Of Direct Order For Psychological
+243,Violation Of Medical Restrictions
+244,Miscellaneous
+245,Firearm Discharge With Hits / On Duty
+246,Firearm Discharge With Hits / Off Duty
+247,Coercion - Violence
+248,Coercion - Threat Of Arrest/Charges
+249,Coercion -Threat Of Non-Criminal Govt Enforcement (Ie. Dcfs)
+250,Coercion - Miscellaneous
+251,Shots Fired - No Hits
+252,Shots Fired - Destruction Of Animal
+253,Taser Discharge
+254,Oc Discharge
+255,Miscellaneous
+256,Compliance With Motor Vehicle Pursuit Requirements
+257,Closed Hand Strike (Punch)
+258,Open Hand Strike (Slap)
+259,Elbow Strike
+260,Knee Strike
+261,Kicked
+262,Stomped / Stepped On
+263,Choked
+264,Take Down (Thrown To Ground)
+265,Dragged
+266,Impact Weapon - Authorized (Baton / Asp)
+267,"Impact Weapon - Unauthorized (Flashlight, Handcuffs, Etc)"
+268,Firearm Used As An Impact Weapon
+269,Oc Chemical Weapon
+270,Taser (Probe Discharge)
+271,Taser (Contact Stun)
+272,Taser (Laser Targeted)
+273,Taser (Spark Displayed)
+274,Vehicle
+275,Miscellaneous
+276,Closed Hand Strike (Punch)
+277,Open Hand Strike (Slap)
+278,Elbow Strike
+279,Knee Strike
+280,Kicked
+281,Stomped / Stepped On
+282,Choked
+283,Take Down (Thrown To Ground)
+284,Dragged
+285,Impact Weapon - Authorized (Baton / Asp)
+286,"Impact Weapon - Unauthorized (Flashlight, Handcuffs, Etc)"
+287,Firearm Used As An Impact Weapon
+288,Oc Chemical Weapon
+289,Taser (Probe Discharge)
+290,Taser (Contact Stun)
+291,Taser (Laser Targeted)
+292,Taser (Spark Displayed)
+293,Canine
+294,Vehicle
+295,Miscellaneous
+296,Closed Hand Strike (Punch)
+297,Closed Hand Strike (Punch)
+298,Open Hand Strike (Slap)
+299,Open Hand Strike (Slap)
+300,Elbow Strike
+301,Kicked
+302,Kicked
+303,Stomped / Stepped On
+304,Choked
+305,Choked
+306,Take Down (Thrown To Ground)
+307,Take Down (Thrown To Ground)
+308,Impact Weapon - Authorized (Baton / Asp)
+309,Impact Weapon - Authorized (Baton / Asp)
+310,"Impact Weapon - Unauthorized (Flashlight, Handcuffs, Etc)"
+311,"Impact Weapon - Unauthorized (Flashlight, Handcuffs, Etc)"
+312,Firearm Used As An Impact Weapon
+313,Oc Chemical Weapon
+314,Oc Chemical Weapon
+315,Vehicle
+316,Miscellaneous
+317,Miscellaneous
+318,Firearm Discharge With Hits - Handgun
+319,Firearm Discharge With Hits - Handgun
+320,Firearm Discharge With Hits - Miscellaneous Firearm
+321,Firearm Discharge No Hits - Handgun
+322,Firearm Discharge No Hits - Handgun
+323,Firearm Discharge No Hits - Miscellaneous Firearm
+324,Unjustified Pointing Of Firearm - Handgun
+325,Unjustified Pointing Of Firearm - Handgun
+326,Injury
+327,No Injury
+328,Stalking
+329,Harassment
+330,Verbal Abuse
+331,Threats
+332,Violation Of Court Order
+333,Miscellaneous
+334,Push/Pull/Grab
+335,Push/Pull/Grab
+336,Pushed To Ground
+337,Pushed To Ground
+338,Handcuff Too Tight
+339,Handcuff Too Tight
+340,Twisted Extremities (Wrist/Arm/Leg)
+341,Twisted Extremities (Wrist/Arm/Leg)
+342,Miscellaneous
+343,Miscellaneous
+344,Accident - Fatal
+345,Accident - Injury
+346,Accident - No Injury
+347,Money - Failed To Inventory
+348,Property - Failed To Inventory
+349,Property - Failed To Issue Receipt
+350,Citation
+351,Traffic Crash Report
+352,Unauthorized Weapon
+353,Lost / Stolen Weapon
+354,Failure To Register
+355,Other
+356,Federal
+357,Wrong Ammunition
+358,Lost / Stolen Weapon
+359,Failure To Register
+360,Other
+361,Missing Money
+362,Missing Property
+363,Missing Both
+364,Accident - Property Damage
+365,With Keys
+366,Without Keys
+367,Street
+368,Facility
+369,Vehicle
+370,Money - Failed To Issue Receipt
+371,Contempt
+372,Sexual Harassment
+373,Racial
+374,Ageism
+375,Sexual Orientation
+376,Gender
+377,Hostile Work Environment
+378,Fail To Submit
+379,Improper
+380,FALSE
+381,Accident - Fatal
+382,Accident - Injury
+383,Amphetamines
+384,Benzodiazepine
+385,Benzodiazepine
+386,Opiate
+387,Opiate
+388,Propoxyphene
+389,Marijuana
+390,Marijuana
+391,Cocaine
+392,Cocaine
+393,Other
+394,Timely Notification To Unit
+395,Failure To Appear At Mss
+396,Failure To Provide Proper Documentation
+397,Not At Home
+398,Firearm Discharge With Hits - Handgun
+399,Firearm Discharge With Hits - Shotgun
+400,Firearm Discharge With Hits - Rifle / Assault Weapon
+401,Firearm Discharge With Hits - Miscellaneous Firearm
+402,Firearm Discharge With Hits - Handgun
+403,Dui-No Accident
+404,Non Arrestee
+405,Failure To Receive Approval For Travel
+406,Misrepresentation Of Injury
+407,Disability
+408,Firearm Discharge
+409,Other Use Of Force
+410,Taser Discharge
+411,Incident in Police Custody
+412,Vehicle Licensing - State
+413,Positive Drug Screen - Recruit
+414,Drug/Substance Abuse
+415,Motor Vehicle Fatality - On Duty
