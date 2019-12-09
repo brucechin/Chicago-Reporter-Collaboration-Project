@@ -90,8 +90,6 @@ def count_words(words):
 #     for word in ranked_word:
 #         f.write("{}   {}\n".format(word, word_counter[word]))
 
-
-
 def count_keywords_freq(words):
     if(len(words) == 0):
         return 0
@@ -161,4 +159,3 @@ print(data[data['victim_race'] == 'Hispanic']['punishment_severity'].describe())
 print(data[data['victim_race'] == 'Black']['punishment_severity'].describe())
 print(data[data['victim_race'] == 'White']['punishment_severity'].describe())
 
-data[data['victim_race'] == 'Hispanic']['punishment_severity'].to_csv("hispanic_victim_punishment.csv")

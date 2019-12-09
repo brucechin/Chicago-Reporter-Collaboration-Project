@@ -9,54 +9,55 @@ from sklearn.externals.six import StringIO
 from IPython.display import Image
 from sklearn.tree import export_graphviz
 import pydotplus
-
+from sklearn.metrics import r2_score
 #load data from csv file, we have total data of 211440 rows
 data = pd.read_csv("../data/data_question1.csv")
-data['race'] = data['race'].fillna("nan")
-def normalize_race(race):
-    if(race == 'nan'):
-        return 0
-    elif(race == 'Black'):
-        return 1
-    elif(race == 'Asian/Pacific Islander'):
-        return 2
-    elif(race == 'Hispanic'):
-        return 3
-    elif(race == 'Native American/Alaskan Native'):
-        return 4
-    else:
-        return 5
-
-data['race'] = data['race'].apply(lambda x : normalize_race(x))
+data['race'] = data['race'].fillna("lost")
 
 #the model can not accept NaN input
 data = data.fillna(0)
 
-train, test = train_test_split(data, test_size= 0.3)
-columns = ['race', 'allegation_category_id', 'investigator_id']
-X_train = train[columns]
+
+most_frequent_investigators_index = data['investigator_id'].value_counts().index[:1000]
+data = data.iloc[most_frequent_investigators_index]
+final_data = pd.get_dummies(data, columns=['race', 'allegation_category_id', 'investigator_id'])
+print(final_data.columns)
+final_data = final_data.fillna(0)
+
+train, test = train_test_split(final_data, test_size= 0.3)
+X_train = train.drop(columns=['allegation_id', 'duration','current_star'])
+X_test = test.drop(columns=['allegation_id',  'duration','current_star'])
 Y_train = train['duration']
-X_test = test[columns]
 Y_test = test['duration']
-data['duration'].describe()
-#after testing, estimator does not affect the prediction accuracy
-# estimators = [10, 20, 30, 40, 50, 60, 70, 80]
-# for i in estimators:
+
 
 #after testing, we found that LR model training costs too much time, which means it is not a good option. We will not use LR model in following questions
-#clf = RandomForestRegressor(random_state= 10, n_estimators=20)
-clf = DecisionTreeRegressor(random_state=10, max_depth= 25)
+clf = DecisionTreeRegressor(random_state=10, max_depth=70)
 clf.fit(X_train, Y_train)
 prediction = clf.predict(X_test)
+
 print("investigation duration prediction scores with 'race', 'allegation_category_id' and 'investigator_id' are :")
 print("training accuracy RMSE score is {}".format(np.sqrt(mean_squared_error(clf.predict(X_train), Y_train))))
 print('testing accuracy RMSE score is {}'.format(np.sqrt(mean_squared_error(prediction, Y_test))))
+print("R square score is {}".format(r2_score(prediction, Y_test)))
 print("\n")
-print(tree.plot_tree(clf))
 
 
 
+columns = final_data.drop(columns=['allegation_id', 'duration','current_star']).columns
+importances = clf.feature_importances_
 
+#race, allegation_type, and investigator. sum them up
+feature_importance = [0,0,0]
+for i in range(len(columns)):
+    if('race' in columns[i]):
+        feature_importance[0] += importances[i]
+    elif('allegation' in columns[i]):
+        feature_importance[1] += importances[i]
+    else:
+        feature_importance[2] += importances[i]
+
+print(feature_importance)
 
 #for visualizing the decison tree, max_depth is set to a smaller value. if it is too large, rendering will cost
 #a lot of time and the tree structure is difficult to recognize in our report
