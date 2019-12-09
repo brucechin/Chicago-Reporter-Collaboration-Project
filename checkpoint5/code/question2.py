@@ -36,7 +36,6 @@ final_outcome_list = ['10 Day Suspension', '8 Day Suspension', 'Suspended For 18
 most_frequent_investigators_index = data['investigator_id'].value_counts().index[:1000]
 data = data.iloc[most_frequent_investigators_index]
 final_data = pd.get_dummies(data, columns=['race', 'allegation_category_id', 'investigator_id'])
-print(final_data.columns)
 final_data = final_data.fillna(0)
 train, test = train_test_split(final_data, test_size= 0.3)
 X_train = train.drop(columns=['allegation_id', 'final_outcome','current_star'])
@@ -91,3 +90,54 @@ graph = pydotplus.graph_from_dot_data(dot_data)
 Image(graph.create_png())
 # Create PNG
 graph.write_png("../visualization/tree_vis_question2.png")
+
+
+
+####delete No Action Taken and Unknown rows
+print("\n\ndelete No Action Taken and Unknown rows and do another test\n\n")
+data = pd.read_csv("../data/data_question2.csv")
+data['race'] = data['race'].fillna("lost")
+data['final_outcome'] = data['final_outcome'].fillna("Unknown")
+data['allegation_category_id'] = data['allegation_category_id'].fillna(-1)
+data['investigator_id'] = data['investigator_id'].fillna(-1)
+data = data[(data['final_outcome'] != 'Unknown') & (data['final_outcome']!= 'No Action Taken')]
+
+most_frequent_investigators_index = data['investigator_id'].value_counts().index[:1000]
+data = data.iloc[most_frequent_investigators_index]
+final_data = pd.get_dummies(data, columns=['race', 'allegation_category_id', 'investigator_id'])
+print(final_data.columns)
+final_data = final_data.fillna(0)
+train, test = train_test_split(final_data, test_size= 0.3)
+X_train = train.drop(columns=['allegation_id', 'final_outcome','current_star'])
+Y_train = train['final_outcome']
+X_test = test.drop(columns=['allegation_id',  'final_outcome','current_star'])
+Y_test = test['final_outcome']
+
+
+#we have tested it that we can achieve ~90% final outcome prediction accuracy using race, allegation category and investigator id
+# estimators = [10, 20, 30, 40, 50, 60, 70, 80]
+# for i in estimators:
+clf = DecisionTreeClassifier(random_state=10, max_depth=100)
+#clf = RandomForestClassifier(random_state= 10, n_estimators=20)
+clf.fit(X_train, Y_train)
+prediction = clf.predict(X_test)
+print("disciplinary action prediction scores with 'race', 'allegation_category_id' and 'investigator_id' are :")
+print("training accuracy score is {}".format(clf.score(X_train, Y_train)))
+print("accuracy is {}, F1 score is {}".format(accuracy_score(prediction, Y_test), f1_score(prediction, Y_test, average='weighted', zero_division=True)))
+print("precision score is {}, recall score is {}".format(precision_score(prediction, Y_test, average='weighted', zero_division=True),recall_score(prediction, Y_test, average='weighted', zero_division=True)))
+print("\n")
+#print(prediction, Y_test)
+columns = final_data.drop(columns=['allegation_id', 'final_outcome','current_star']).columns
+importances = clf.feature_importances_
+
+#race, allegation_type, and investigator. sum them up
+feature_importance = [0,0,0]
+for i in range(len(columns)):
+    if('race' in columns[i]):
+        feature_importance[0] += importances[i]
+    elif('allegation' in columns[i]):
+        feature_importance[1] += importances[i]
+    else:
+        feature_importance[2] += importances[i]
+
+print(feature_importance)
