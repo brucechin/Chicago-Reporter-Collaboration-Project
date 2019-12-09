@@ -38,14 +38,14 @@ X_train = train[columns]
 Y_train = train['duration']
 X_test = test[columns]
 Y_test = test['duration']
-
+data['duration'].describe()
 #after testing, estimator does not affect the prediction accuracy
 # estimators = [10, 20, 30, 40, 50, 60, 70, 80]
 # for i in estimators:
 
 #after testing, we found that LR model training costs too much time, which means it is not a good option. We will not use LR model in following questions
 #clf = RandomForestRegressor(random_state= 10, n_estimators=20)
-clf = DecisionTreeRegressor(random_state=10)
+clf = DecisionTreeRegressor(random_state=10, max_depth= 25)
 clf.fit(X_train, Y_train)
 prediction = clf.predict(X_test)
 print("investigation duration prediction scores with 'race', 'allegation_category_id' and 'investigator_id' are :")
@@ -54,15 +54,26 @@ print('testing accuracy RMSE score is {}'.format(np.sqrt(mean_squared_error(pred
 print("\n")
 print(tree.plot_tree(clf))
 
-from graphviz import Source
-from IPython.display import SVG
-graph = Source( tree.export_graphviz(clf, out_file=None, feature_names=X_train.columns))
-SVG(graph.pipe(format='svg'))
 
-graph = Source( tree.export_graphviz(clf, out_file=None, feature_names=X_train.columns))
-graph.format = 'png'
-graph.render('dtree_render',view=True)
 
+
+
+#for visualizing the decison tree, max_depth is set to a smaller value. if it is too large, rendering will cost
+#a lot of time and the tree structure is difficult to recognize in our report
+clf = DecisionTreeRegressor(random_state=10, max_depth= 5)
+clf.fit(X_train, Y_train)
+# Create DOT data
+dot_data = tree.export_graphviz(clf, out_file=None,
+                                feature_names=columns,
+                                )
+# Draw graph
+graph = pydotplus.graph_from_dot_data(dot_data)
+
+# Show graph
+Image(graph.create_png())
+
+# Create PNG
+graph.write_png("../visualization/tree_vis_question1.png")
 #graph.write_png("iris.png")
 
 # for i in range(len(columns)):

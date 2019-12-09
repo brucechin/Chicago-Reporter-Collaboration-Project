@@ -27,9 +27,9 @@ from data_victim inner join data_officerallegation d on data_victim.allegation_i
     inner join case_allegation_settlement cas on d.allegation_id = cas.allegation_id
     inner join cases_case on cases_case.id = cas.case_id;
 
---question 4 data retrieval
+--question 4 & 5 data retrieval
 
-select public.data_allegation.id allegation_id, crid, allegation_name, category, final_outcome, d.race investigator_race, dv.race victim_race  from data_allegation
+select public.data_allegation.id allegation_id, crid, allegation_name, category, final_outcome, d.race investigator_race, dv.race victim_race from data_allegation
     inner join data_victim dv on data_allegation.id = dv.allegation_id
     inner join data_investigatorallegation di on data_allegation.id = di.allegation_id
     inner join data_investigator d on di.investigator_id = d.id

@@ -7,7 +7,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error
-
+from IPython.display import Image
+from sklearn.tree import export_graphviz
+import pydotplus
+from sklearn import tree
 data = pd.read_csv("../data/data_question3.csv")
 primary_cause_list = ['Excessive force', 'Assault', 'Illegal/Unreasonable Search', 'Due Process Violation',
                       'Battery', 'Failure to Provide Medical Care', 'Monell (Policy and Practice)', 'Illegal search/seizure',
@@ -64,9 +67,9 @@ data = data.fillna(0)
 # print(set(data['primary_cause']))
 # print(set(data['judge']))
 print(data.describe())
-#data = data.drop(data[data['settlement_num'] > 1000000].index)
-#print(data.describe())
-train, test = train_test_split(data, test_size= 0.3)
+data = data.drop(data[data['settlement_num'] > 1000000].index)
+print(data.describe())
+train, test = train_test_split(data, test_size= 0.2)
 X_train = train[['race', 'primary_cause', 'judge']]
 X_test = test[['race', 'primary_cause', 'judge']]
 Y_train = train['settlement_num']
@@ -74,15 +77,15 @@ Y_test = test['settlement_num']
 
 
 #clf = RandomForestRegressor(random_state= 10, n_estimators=50)
-depths = [10, 15, 20, 25, 30, 35, 40, 45, 50]
-for depth in depths:
-    clf = DecisionTreeRegressor(random_state=10, max_depth= depth)
-    clf.fit(X_train, Y_train)
-    prediction = clf.predict(X_test)
-    print("prediction scores with 'race', 'allegation type/primary cause' and 'judge' are :")
-    print("training accuracy RMSE score is {}".format(np.sqrt(mean_squared_error(clf.predict(X_train), Y_train))))
-    print('testing accuracy RMSE score is {}'.format(np.sqrt(mean_squared_error(prediction, Y_test))))
-    print("\n")
+# depths = [10, 15, 20, 25, 30, 35, 40, 45, 50]
+# for depth in depths:
+clf = DecisionTreeRegressor(random_state=10, max_depth= 25)
+clf.fit(X_train, Y_train)
+prediction = clf.predict(X_test)
+print("prediction scores with 'race', 'allegation type/primary cause' and 'judge' are :")
+print("training accuracy RMSE score is {}".format(np.sqrt(mean_squared_error(clf.predict(X_train), Y_train))))
+print('testing accuracy RMSE score is {}'.format(np.sqrt(mean_squared_error(prediction, Y_test))))
+print("\n")
 
 #print(prediction, Y_test)
 
@@ -92,5 +95,26 @@ plt.figure()
 plt.title("question 3 feature importance graph")
 plt.bar(['race', 'allegation type/primary cause', 'judge'], importances)
 plt.show()
+
+
+
+
+#for visualizing the decison tree, max_depth is set to a smaller value. if it is too large, rendering will cost
+#a lot of time and the tree structure is difficult to recognize in our report
+clf = DecisionTreeRegressor(random_state=10, max_depth= 5)
+clf.fit(X_train, Y_train)
+columns = ['race', 'primary_cause', 'judge']
+# Create DOT data
+dot_data = tree.export_graphviz(clf, out_file=None,
+                                feature_names=columns,
+                                )
+# Draw graph
+graph = pydotplus.graph_from_dot_data(dot_data)
+
+# Show graph
+Image(graph.create_png())
+
+# Create PNG
+graph.write_png("../visualization/tree_vis_question3.png")
 
 

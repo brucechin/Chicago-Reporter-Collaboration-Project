@@ -54,7 +54,7 @@ key_words = ['accused', 'incident', 'weapon', 'alleged', "arrested", "violation"
              'conspiracy','commit','crime','warrant','damage','gang','death','discharge','misconduct','sexual','abuse','firearms','discipline','investiagted',
              'judgement','suspected','identifying','theft','constitution','jail','shoot','deadly','bullet','constitut','unlawfully','alcoholic','suspicion',
              'disorder','sensitive','racial','burglary','uncooperative','concealed','diagnosed','justified','illegally','arguing','severe','obligation','gunshots',
-             'abusing','spam','jaw','yell','jury','inspector','discriminated','punishment','warnings','unauthorized','discriminatory','']
+             'abusing','spam','jaw','yell','jury','inspector','discriminated','punishment','warnings','unauthorized','discriminatory','homicide']
 
 #use set to gain higher speed when check if word exist in it
 key_words = set(key_words)
@@ -130,7 +130,7 @@ for victim_race in races:
     for investigator_race in races:
         target = data[(data["victim_race"] == victim_race) & (data["investigator_race"] == investigator_race)]
         rows.append([victim_race, investigator_race, target['keywords_freq'].mean(), target['punishment_severity'].mean(), target['victim_race'].count()])
-
+rows.append(["all_race","all_race",data['keywords_freq'].mean(), data['punishment_severity'].mean(), data['victim_race'].count()])#get all average value for punishment_severity and keywords frequency
 analysis = pd.DataFrame(rows, columns=['victim_race','investigator_race','keywords_freq', 'punishment_severity', 'number_of_allegation'])
 
 analysis.to_csv("../data/overall_analysis.csv",index=False)
@@ -139,6 +139,7 @@ rows = []
 for victim_race in races:
     target = data[data['victim_race'] == victim_race]
     rows.append([victim_race, target['keywords_freq'].mean(), target['punishment_severity'].mean(), target['victim_race'].count()])
+rows.append(["all_race",data['keywords_freq'].mean(), data['punishment_severity'].mean(), data['victim_race'].count()])#get all average value for punishment_severity and keywords frequency
 victim_race_analysis = pd.DataFrame(rows, columns=['victim_race','keywords_freq', 'punishment_severity', 'number_of_allegation'])
 victim_race_analysis.to_csv("../data/victim_race_analysis_question4.csv",index=False)
 print("question 4 analysis done and saved to {}".format("victim_race_analysis_question4.csv"))
@@ -147,9 +148,17 @@ rows = []
 for investigator_race in races:
     target = data[(data['investigator_race'] == investigator_race) & (data['victim_race'] != 'White')]
     rows.append([investigator_race, target['keywords_freq'].mean(), target['punishment_severity'].mean(), target['investigator_race'].count()])
+rows.append(["all_race",data['keywords_freq'].mean(), data['punishment_severity'].mean(), data['victim_race'].count()])#get all average value for punishment_severity and keywords frequency
 investigator_race_analysis = pd.DataFrame(rows, columns=['investigator_race','keywords_freq', 'punishment_severity', 'number_of_allegation'])
 investigator_race_analysis.to_csv("../data/investigator_race_analysis_question5.csv", index=False)
 print("question 5 analysis done and saved to {}".format("investigator_race_analysis_question5.csv"))
 
 print(victim_race_analysis)
 print(investigator_race_analysis)
+
+
+print(data[data['victim_race'] == 'Hispanic']['punishment_severity'].describe())
+print(data[data['victim_race'] == 'Black']['punishment_severity'].describe())
+print(data[data['victim_race'] == 'White']['punishment_severity'].describe())
+
+data[data['victim_race'] == 'Hispanic']['punishment_severity'].to_csv("hispanic_victim_punishment.csv")

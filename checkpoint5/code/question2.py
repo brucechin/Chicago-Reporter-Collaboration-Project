@@ -7,7 +7,10 @@ from sklearn.metrics import recall_score,precision_score
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
-
+from IPython.display import Image
+from sklearn.tree import export_graphviz
+import pydotplus
+from sklearn import  tree
 #load data from csv file, we have total data of 211440 rows
 #we have the following final outcomes
 data = pd.read_csv("../data/data_question2.csv")
@@ -59,8 +62,8 @@ Y_test = test['final_outcome']
 #we have tested it that we can achieve ~90% final outcome prediction accuracy using race, allegation category and investigator id
 # estimators = [10, 20, 30, 40, 50, 60, 70, 80]
 # for i in estimators:
-#clf = DecisionTreeClassifier(random_state=10)
-clf = RandomForestClassifier(random_state= 10, n_estimators=20)
+clf = DecisionTreeClassifier(random_state=10)
+#clf = RandomForestClassifier(random_state= 10, n_estimators=20)
 clf.fit(X_train, Y_train)
 prediction = clf.predict(X_test)
 print("disciplinary action prediction scores with 'race', 'allegation_category_id' and 'investigator_id' are :")
@@ -106,7 +109,7 @@ X_train = train[['race', 'allegation_category_id', 'investigator_id']]
 Y_train = train['final_outcome']
 X_test = test[['race', 'allegation_category_id', 'investigator_id']]
 Y_test = test['final_outcome']
-clf = DecisionTreeClassifier(random_state=10)
+clf = DecisionTreeClassifier(random_state=10, max_depth=25)
 #clf = RandomForestClassifier(random_state= 10, n_estimators=20)
 clf.fit(X_train, Y_train)
 prediction = clf.predict(X_test)
@@ -118,3 +121,23 @@ print("\n")
 
 importances = clf.feature_importances_
 print(importances)
+
+
+
+#for visualizing the decison tree, max_depth is set to a smaller value. if it is too large, rendering will cost
+#a lot of time and the tree structure is difficult to recognize in our report
+clf = DecisionTreeClassifier(random_state=10, max_depth= 5)
+clf.fit(X_train, Y_train)
+columns = ['race', 'primary_cause', 'investigator_id']
+# Create DOT data
+dot_data = tree.export_graphviz(clf, out_file=None,
+                                feature_names=columns,
+                               class_names = final_outcome_list
+                                )
+# Draw graph
+graph = pydotplus.graph_from_dot_data(dot_data)
+
+# Show graph
+Image(graph.create_png())
+# Create PNG
+graph.write_png("../visualization/tree_vis_question2.png")
