@@ -105,7 +105,6 @@ data = data[(data['final_outcome'] != 'Unknown') & (data['final_outcome']!= 'No 
 most_frequent_investigators_index = data['investigator_id'].value_counts().index[:1000]
 data = data.iloc[most_frequent_investigators_index]
 final_data = pd.get_dummies(data, columns=['race', 'allegation_category_id', 'investigator_id'])
-print(final_data.columns)
 final_data = final_data.fillna(0)
 train, test = train_test_split(final_data, test_size= 0.3)
 X_train = train.drop(columns=['allegation_id', 'final_outcome','current_star'])

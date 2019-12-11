@@ -44,17 +44,17 @@ high_freq_but_not_useful_words = ["yes", "police", "officer", "unit", "date", "s
                                   "also","would","address","section","battery","hand", "information"]
 
 #we decided to use key words to determine the degree of minimization of an investigation document
-key_words = ['accused', 'incident', 'weapon', 'alleged', "arrested", "violation", "observed", "detective", "refused", "force", "accountability",
-             "firearm", "review", "report", "civilian", "disciplinary", "evidence", "complaint", "alleged", "beat", "respondent", "court","violation",
+key_words = ['accused', 'incident', 'weapon', 'alleged', "arrested", "violation", "observed", "detective", "refused", "force",
+             "firearm", "report", "civilian", "disciplinary", "evidence", "complaint", "alleged", "beat", "respondent", "court","violation",
              "medical","charges","arrested","warrant","suspension","property","injury","denied","injured","gun","victims","arresting","searched","charged",
              "law", "security", "guilty","drug","testimony","penalty", "misconduct","violations","alcohol","shots", "suspect","permission","kicked",
              "testified","repeatedly","shooting","falsely","unlawful","allowed","excessive","damaged","doctor","broken","disobedience","judge","intoxicated",
-             "disrespect","compliance","acknowledge","fire","illegal","yelling","bureau","arrest","offender","investigation","duty","rule","rights","handgun",
+             "compliance","acknowledge","fire","illegal","yelling","bureau","arrest","offender","investigation","rights","handgun",
              "approved","taser","superintendent","allegation","summary","counsel","duties","checked","drinking","accidental","stolen","shotgun",'misuse',
              'conspiracy','commit','crime','warrant','damage','gang','death','discharge','misconduct','sexual','abuse','firearms','discipline','investiagted',
              'judgement','suspected','identifying','theft','constitution','jail','shoot','deadly','bullet','constitut','unlawfully','alcoholic','suspicion',
-             'disorder','sensitive','racial','burglary','uncooperative','concealed','diagnosed','justified','illegally','arguing','severe','obligation','gunshots',
-             'abusing','spam','jaw','yell','jury','inspector','discriminated','punishment','warnings','unauthorized','discriminatory','homicide']
+             'disorder','racial','burglary','uncooperative','concealed','diagnosed','justified','illegally','arguing','severe','obligation','gunshots',
+             'abusing','spam','jaw','yell','jury','discriminated','punishment','warnings','unauthorized','discriminatory','homicide']
 
 #use set to gain higher speed when check if word exist in it
 key_words = set(key_words)
@@ -155,7 +155,7 @@ print(victim_race_analysis)
 print(investigator_race_analysis)
 
 
-print(data[data['victim_race'] == 'Hispanic']['punishment_severity'].describe())
-print(data[data['victim_race'] == 'Black']['punishment_severity'].describe())
-print(data[data['victim_race'] == 'White']['punishment_severity'].describe())
+# print(data[data['victim_race'] == 'Hispanic']['punishment_severity'].describe())
+# print(data[data['victim_race'] == 'Black']['punishment_severity'].describe())
+# print(data[data['victim_race'] == 'White']['punishment_severity'].describe())
 

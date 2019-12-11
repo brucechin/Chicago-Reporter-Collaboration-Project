@@ -19,7 +19,6 @@ data = pd.read_csv("../data/data_question3.csv")
 # print(set(data['judge']))
 
 final_data = pd.get_dummies(data, columns=['race', 'primary_cause', 'judge'])
-print(final_data.columns)
 final_data = final_data.fillna(0)
 train, test = train_test_split(final_data, test_size= 0.3)
 X_train = train.drop(columns=['settlement_num', 'allegation_id'])
