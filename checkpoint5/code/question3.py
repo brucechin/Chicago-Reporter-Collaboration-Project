@@ -13,7 +13,7 @@ import pydotplus
 from sklearn import tree
 from sklearn.metrics import r2_score
 
-data = pd.read_csv("../data/data_question3.csv")
+data = pd.read_csv("data_question3.csv")
 
 # print(set(data['primary_cause']))
 # print(set(data['judge']))
@@ -50,10 +50,16 @@ for i in range(len(columns)):
     else:
         feature_importance[2] += importances[i]
 
+print("race, primary cause and judge importance weights in our model :")
 print(feature_importance)
 
 #for visualizing the decison tree, max_depth is set to a smaller value. if it is too large, rendering will cost
 #a lot of time and the tree structure is difficult to recognize in our report
+
+
+#######################################################################################################################
+#decision tree visualization part. if you can not install graphviz software successfully, please delete the code below#
+#######################################################################################################################
 clf = DecisionTreeRegressor(random_state=10, max_depth= 5)
 clf.fit(X_train, Y_train)
 # Create DOT data
@@ -67,6 +73,7 @@ graph = pydotplus.graph_from_dot_data(dot_data)
 Image(graph.create_png())
 
 # Create PNG
-graph.write_png("../visualization/tree_vis_question3.png")
-
-
+graph.write_png("tree_vis_question3.png")
+#######################################################################################################################
+#decision tree visualization part. if you can not install graphviz software successfully, please delete the code above#
+#######################################################################################################################

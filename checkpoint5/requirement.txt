@@ -1,2 +1,6 @@
 pydotplus
 IPython
+numpy
+pandas
+sklearn
+matplotlib

@@ -16,7 +16,7 @@ from sklearn import preprocessing
 #load data from csv file, we have total data of 211440 rows
 #we have the following final outcomes
 
-data = pd.read_csv("../data/data_question2.csv")
+data = pd.read_csv("data_question2.csv")
 data['race'] = data['race'].fillna("lost")
 data['final_outcome'] = data['final_outcome'].fillna("Unknown")
 data['allegation_category_id'] = data['allegation_category_id'].fillna(-1)
@@ -70,11 +70,17 @@ for i in range(len(columns)):
     else:
         feature_importance[2] += importances[i]
 
+print("race, allegation_type, investigator_id importance weights in our model :")
 print(feature_importance)
 
 
 #for visualizing the decison tree, max_depth is set to a smaller value. if it is too large, rendering will cost
 #a lot of time and the tree structure is difficult to recognize in our report
+
+
+#######################################################################################################################
+#decision tree visualization part. if you can not install graphviz software successfully, please delete the code below#
+#######################################################################################################################
 clf = DecisionTreeClassifier(random_state=10, max_depth= 5)
 clf.fit(X_train, Y_train)
 
@@ -89,13 +95,19 @@ graph = pydotplus.graph_from_dot_data(dot_data)
 # Show graph
 Image(graph.create_png())
 # Create PNG
-graph.write_png("../visualization/tree_vis_question2.png")
+graph.write_png("tree_vis_question2.png")
+#######################################################################################################################
+#decision tree visualization part. if you can not install graphviz software successfully, please delete the code above#
+#######################################################################################################################
+
+
+
 
 
 
 ####delete No Action Taken and Unknown rows
 print("\n\ndelete No Action Taken and Unknown rows and do another test\n\n")
-data = pd.read_csv("../data/data_question2.csv")
+data = pd.read_csv("data_question2.csv")
 data['race'] = data['race'].fillna("lost")
 data['final_outcome'] = data['final_outcome'].fillna("Unknown")
 data['allegation_category_id'] = data['allegation_category_id'].fillna(-1)
@@ -114,8 +126,7 @@ Y_test = test['final_outcome']
 
 
 #we have tested it that we can achieve ~90% final outcome prediction accuracy using race, allegation category and investigator id
-# estimators = [10, 20, 30, 40, 50, 60, 70, 80]
-# for i in estimators:
+
 clf = DecisionTreeClassifier(random_state=10, max_depth=100)
 #clf = RandomForestClassifier(random_state= 10, n_estimators=20)
 clf.fit(X_train, Y_train)
@@ -139,4 +150,6 @@ for i in range(len(columns)):
     else:
         feature_importance[2] += importances[i]
 
+
+print("race, allegation_type, investigator_id importance weights in our model :")
 print(feature_importance)

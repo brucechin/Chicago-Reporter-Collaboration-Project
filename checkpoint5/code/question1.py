@@ -11,7 +11,7 @@ import pydotplus
 from sklearn.metrics import r2_score
 
 #load data from csv file, we have total data of 211440 rows
-data = pd.read_csv("../data/data_question1.csv")
+data = pd.read_csv("data_question1.csv")
 data['race'] = data['race'].fillna("lost")
 
 #the model can not accept NaN input
@@ -56,10 +56,17 @@ for i in range(len(columns)):
     else:
         feature_importance[2] += importances[i]
 
+print("race, allegation_type, investigator_id importance weights in our model :")
 print(feature_importance)
 
 #for visualizing the decison tree, max_depth is set to a smaller value. if it is too large, rendering will cost
 #a lot of time and the tree structure is difficult to recognize in our report
+
+
+
+#######################################################################################################################
+#decision tree visualization part. if you can not install graphviz software successfully, please delete the code below#
+#######################################################################################################################
 clf = DecisionTreeRegressor(random_state=10, max_depth= 5)
 clf.fit(X_train, Y_train)
 # Create DOT data
@@ -73,10 +80,7 @@ graph = pydotplus.graph_from_dot_data(dot_data)
 Image(graph.create_png())
 
 # Create PNG
-graph.write_png("../visualization/tree_vis_question1.png")
-#graph.write_png("iris.png")
-
-# for i in range(len(columns)):
-#     print("feature {} importance score in decision tree : {}".format(columns[i], clf.feature_importances_[i]))
-
-#print(clf.decision_path(X_test))
+graph.write_png("tree_vis_question1.png")
+#######################################################################################################################
+#decision tree visualization part. if you can not install graphviz software successfully, please delete the code above#
+#######################################################################################################################
