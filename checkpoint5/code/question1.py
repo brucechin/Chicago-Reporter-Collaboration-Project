@@ -5,18 +5,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error
 from sklearn import tree
-from sklearn.externals.six import StringIO
 from IPython.display import Image
 from sklearn.tree import export_graphviz
 import pydotplus
 from sklearn.metrics import r2_score
+
 #load data from csv file, we have total data of 211440 rows
 data = pd.read_csv("../data/data_question1.csv")
 data['race'] = data['race'].fillna("lost")
 
 #the model can not accept NaN input
 data = data.fillna(0)
-
 
 most_frequent_investigators_index = data['investigator_id'].value_counts().index[:1000]
 data = data.iloc[most_frequent_investigators_index]
