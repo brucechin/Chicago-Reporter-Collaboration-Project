@@ -1,0 +1,13 @@
+
+challenge1/data/arrests/arrests-2016.csv
+challenge1/data/arrests/arrests-2015.csv
+challenge1/data/arrests/arrests-2014.csv
+*.cfg
+*.bat
+*.exe
+*.ps1
+*.xml
+*.iml
+challenge1/test.py
+*.csv
+venv/Scripts/activate
